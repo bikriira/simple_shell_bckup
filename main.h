@@ -14,7 +14,7 @@ void print_digit(long num, char format, int *counter);
 int dixX_check(char suspect, char *list);
 
 
-/* For simple shell */
+/* For simple_shell */
 void print_prompt();
 char **read_and_tokenise();
 char **tokenise_prompt(char *str, char *delimeter);
