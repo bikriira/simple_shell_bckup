@@ -5,6 +5,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/wait.h>
+
+
+extern char **environ;
+
 
 /* For _printf */
 int _printf(const char *format, ...);
@@ -18,6 +23,7 @@ int dixX_check(char suspect, char *list);
 void print_prompt();
 char **read_and_tokenise();
 char **tokenise_prompt(char *str, char *delimeter);
+char **execute_prompt(char **argv);
 
 
 #endif

@@ -11,7 +11,7 @@
 char **tokenise_prompt(char *str, char *delimeter)
 {
 	int i = 0, i_copy = 0;
-	char **argv, *str_copy = str, *token, *str_copy_token;
+	char **argv, *str_copy = strdup(str), *token, *str_copy_token;
 
 	str_copy_token = strtok(str_copy, delimeter);
 
@@ -22,16 +22,18 @@ char **tokenise_prompt(char *str, char *delimeter)
 	}
 
 	argv = malloc(sizeof(char *) * (i_copy + 1));
+	free(str_copy);
 	token = strtok(str, delimeter);
 
 	while (token)
 	{
-		argv[i] = malloc(strlen(token) + 1);
+		argv[i] = malloc((sizeof(char) * strlen(token)) + 1);
 		strcpy(argv[i], token);
 		token = strtok(NULL, delimeter);
 		i++;
 	}
 	argv[i] = NULL;
+	free(str);
 
 	return (argv);
 }
