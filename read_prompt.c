@@ -15,9 +15,11 @@ char **read_and_tokenise()
 	if (read_length == -1)
 	{
 		free(buffer);
-		perror("Failed to read input");
+		/*perror("Failed to read input");*/
 		exit(EXIT_FAILURE);
 	}
-
+	if (read_length == 1)
+		return (NULL);
+	printf("read not a problem");
 	return (tokenise_prompt(buffer, " \t\n"));
 }

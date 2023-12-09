@@ -11,15 +11,16 @@ int main(void)
 {
 	while (1)
 	{
-		int i;
-		char **argv;
+		char **argv, **tokenised;
 
 		print_prompt();
-		argv = execute_prompt(read_and_tokenise());
 
-		for (i = 0; argv[i] != NULL; i++)
-			free(argv[i]);
-		free(argv);
+		tokenised = read_and_tokenise();
+		if (tokenised == NULL)
+			continue;
+		argv = execute_prompt(tokenised);
+
+		free_ptr2ptr(argv);
 	}
 
 	return (0);
