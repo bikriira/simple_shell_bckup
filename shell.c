@@ -16,8 +16,10 @@ int main(void)
 		print_prompt();
 
 		tokenised = read_and_tokenise();
+
 		if (tokenised == NULL)
 			continue;
+
 		argv = execute_prompt(tokenised);
 
 		free_ptr2ptr(argv);

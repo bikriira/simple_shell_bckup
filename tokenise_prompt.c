@@ -20,8 +20,11 @@ char **tokenise_prompt(char *str, char *delimeter)
 		str_copy_token = strtok(NULL, delimeter);
 		i_copy++;
 	}
-
+printf("done counting tokens\n");
 	argv = malloc(sizeof(char *) * (i_copy + 1));
+	printf("done allocating whole argv\n");
+	if (!argv)
+		printf("problem with arv mallocaR\n");
 	free(str_copy);
 	token = strtok(str, delimeter);
 
@@ -33,7 +36,9 @@ char **tokenise_prompt(char *str, char *delimeter)
 		i++;
 	}
 	argv[i] = NULL;
+	printf("done initialising\n");
 	free(str);
+	printf("done freeing str\n");
 
 	return (argv);
 }

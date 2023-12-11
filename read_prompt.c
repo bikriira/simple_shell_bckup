@@ -10,16 +10,17 @@ char **read_and_tokenise()
 {
 	char *buffer = NULL;
 	size_t buffer_size = 0;
-	ssize_t read_length = getline(&buffer, &buffer_size, stdin);
-
+	ssize_t read_length;
+	printf("resding function\n");
+	read_length = getline(&buffer, &buffer_size, stdin);
 	if (read_length == -1)
 	{
 		free(buffer);
-		/*perror("Failed to read input");*/
+		perror("Failed to read input");
 		exit(EXIT_FAILURE);
 	}
 	if (read_length == 1)
 		return (NULL);
-	printf("read not a problem");
+	printf("ready to tokenise\n");
 	return (tokenise_prompt(buffer, " \t\n"));
 }
