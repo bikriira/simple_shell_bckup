@@ -9,14 +9,18 @@
 char **execute_prompt(char **argv)
 {
 	int status;
-	char **path_value = malloc(sizeof(char*));
+	char /***path_value = malloc(sizeof(char*)),*/ *init_path;
 	pid_t child;
+
+	char **path_value = tokenise_env_val("PATH");
 
 	
 	path_value = tokenise_env_val("PATH");
-	if (pather(path_value ,argv[0]) == NULL)
+	init_path = pather(path_value ,argv[0]);
+	if (init_path == NULL)
 	{
 		perror("Command doesn’t exist");
+		free(init_path);
 		free_ptr2ptr(path_value);
 		return (NULL);
 	}
@@ -24,13 +28,14 @@ char **execute_prompt(char **argv)
 
 	if (child == 0)
 	{
-		argv[0] = pather(path_value ,argv[0]);
-		printf("%s", argv[0]);
+		argv[0] = init_path;
+		free(init_path);
 		execve(argv[0], argv, environ);
 		perror("Failed to execute");
 	}
 	else if (child == -1)
 	{
+		free(init_path);
 		perror("Failed to create child");
 	}
 	else
@@ -107,13 +112,20 @@ char *pather(char **token_array, char *prompt_input)
 		strcat(path, prompt_input);
 		printf("token %d: %s",i, token_array[i]);
 		if (stat(path, &stat_storage) == 0)
+		{
+			free_ptr2ptr(token_array);
 			return (path);
+		}
 		free(path);
 		i++;
 	}
 	if (stat(prompt_input, &stat_storage) == 0)
+	{
+		free_ptr2ptr(token_array);
 		return (prompt_input);
+	}
 
+	free_ptr2ptr(token_array);
 	return (NULL);
 }
 

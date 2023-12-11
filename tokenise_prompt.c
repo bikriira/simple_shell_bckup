@@ -24,7 +24,10 @@ printf("done counting tokens\n");
 	argv = malloc(sizeof(char *) * (i_copy + 1));
 	printf("done allocating whole argv\n");
 	if (!argv)
-		printf("problem with arv mallocaR\n");
+	{
+		free(str_copy);
+		free(str);
+	}
 	free(str_copy);
 	token = strtok(str, delimeter);
 
